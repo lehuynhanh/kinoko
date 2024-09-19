@@ -1,0 +1,24 @@
+# Dead Scarecrow (9400639)
+
+rewards:
+  - [ 0, 160, 240, 0.60] # Mesos
+  - [ 1302051, 1, 1, 0.0001 ] # Jeweled Katar 
+  - [ 1002021, 1, 1, 0.0001 ] # Steel Nordic Helm 
+  - [ 1072127 , 1, 1, 0.0001 ] # Blue Jangoon Boots 
+  - [ 1050021 , 1, 1, 0.0001 ] # Blue Crusader Chainmail (M) 
+  - [ 1092029, 1, 1, 0.0001 ] # Esther Shield 
+  - [ 1050036 , 1, 1, 0.0001 ] # Red Starlight (M) 
+  - [ 1002143, 1, 1, 0.0001 ] # Green Matty 
+  - [ 1040076 , 1, 1, 0.0001 ] # Brown Legolier (M) 
+  - [ 1060065 , 1, 1, 0.0001 ] # Brown Legolier Pants (M) 
+  - [ 1002176, 1, 1, 0.0001 ] # Red Burgler 
+  - [ 1082074, 1, 1, 0.0001 ] # Dark Cleave 
+  - [ 2022174, 1, 1, 0.01 ] # White Potion 
+  - [ 2000017, 1, 1, 0.01 ] # Blue Potion 
+  - [ 2022244, 1, 1, 0.0001 ] # Smore 
+  - [ 2060000, 10, 35, 0.008 ] # Arrow for Bow 
+  - [ 2061000, 10, 35, 0.008 ] # Arrow for Crossbow 
+  - [ 2043302 , 1, 1, 0.0001 ] # Scroll for Dagger for ATT 10% 
+  - [ 4000018, 1, 1, 0.6 ] # Firewood 
+  - [ 4006001, 1, 1, 0.0001 ] # The Summoning Rock 
+  - [ 4130009, 1, 1, 0.0001 ] # Pole Arm Forging Stimulator 
