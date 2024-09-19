@@ -485,7 +485,7 @@ public final class Mob extends Life implements ControlledObject, Encodable, Lock
                     }
                     if (finalExp + finalPartyBonus > 0) {
                         user.addExp(finalExp + finalPartyBonus);
-                        user.write(MessagePacket.incExp(finalExp, finalPartyBonus, user == highestDamageDone, false));
+                        user.write(MessagePacket.incExp(finalExp * GameConstants.EXP_RATE, finalPartyBonus * GameConstants.EXP_RATE, user == highestDamageDone, false));
                     }
                     // Process mob kill for quest
                     for (QuestRecord qr : user.getQuestManager().getStartedQuests()) {
@@ -549,7 +549,7 @@ public final class Mob extends Life implements ControlledObject, Encodable, Lock
         }
         // Create drop
         if (reward.isMoney()) {
-            int money = Util.getRandom(reward.getMin(), reward.getMax());
+            int money = (Util.getRandom(reward.getMin(), reward.getMax()) * GameConstants.MESO_RATE);
             if (money <= 0) {
                 return Optional.empty();
             }

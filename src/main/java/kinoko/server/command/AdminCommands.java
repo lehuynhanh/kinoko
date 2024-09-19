@@ -43,7 +43,6 @@ import kinoko.world.job.explorer.Pirate;
 import kinoko.world.job.legend.Aran;
 import kinoko.world.quest.QuestRecord;
 import kinoko.world.quest.QuestState;
-import kinoko.world.skill.SkillConstants;
 import kinoko.world.skill.SkillManager;
 import kinoko.world.skill.SkillRecord;
 import kinoko.world.user.Account;
@@ -361,7 +360,84 @@ public final class AdminCommands {
     @Command({ "map", "warp" })
     @Arguments("field ID to warp to")
     public static void map(User user, String[] args) {
-        final int fieldId = Integer.parseInt(args[1]);
+        int fieldId = 0;
+        switch (args[1]){
+            case "Kerning":
+                fieldId = Integer.parseInt("103000000");
+                break;
+            case "El":
+                fieldId = Integer.parseInt("211000000");
+                break;
+            case "Omega":
+                fieldId = Integer.parseInt("221000000");
+                break;
+            case "Korean":
+                fieldId = Integer.parseInt("222000000");
+                break;
+            case "Mu":
+                fieldId = Integer.parseInt("250000000");
+                break;
+            case "Herb":
+                fieldId = Integer.parseInt("251000000");
+                break;
+            case "Singapore":
+                fieldId = Integer.parseInt("540000000");
+                break;
+            case "Zipangu":
+                fieldId = Integer.parseInt("800000000");
+                break;
+            case "Henesys":
+                fieldId = Integer.parseInt("100000000");
+                break;
+            case "Amoria":
+                fieldId = Integer.parseInt("680000000");
+                break;
+            case "Aquarium":
+                fieldId = Integer.parseInt("230000000");
+                break;
+            case "Edelstein":
+                fieldId = Integer.parseInt("310000000"); 
+                break;
+            case "Ellinia":
+                fieldId = Integer.parseInt("101000000");
+                break;
+            case "Ereve":
+                fieldId = Integer.parseInt("130000000");
+                break;
+            case "Leafre":
+                fieldId = Integer.parseInt("240000000"); 
+                break;
+            case "Ludibrium":
+                fieldId = Integer.parseInt("220000000"); 
+                break;
+            case "Magatia":
+                fieldId = Integer.parseInt("261000000");
+                break;
+            case "Nautilus":
+                fieldId = Integer.parseInt("120000100");
+                break;
+            case "Orbis":
+                fieldId = Integer.parseInt("200000000");
+                break;
+            case "Perion":
+                fieldId = Integer.parseInt("102000000");
+                break;
+            case "Rien":
+                fieldId = Integer.parseInt("140000000");
+                break;
+            case "Sleepywood":
+                fieldId = Integer.parseInt("105000000");
+                break;
+            case "NLC":
+                fieldId = Integer.parseInt("600000000");
+                break;
+            case "Ariant":
+                fieldId = Integer.parseInt("260000000");
+                break;
+            default:
+                fieldId = Integer.parseInt(args[1]);
+                break;
+        }
         final String portalName;
         if (args.length > 2) {
             portalName = args[2];
@@ -452,7 +528,33 @@ public final class AdminCommands {
     @Command("item")
     @Arguments("item ID")
     public static void item(User user, String[] args) {
-        final int itemId = Integer.parseInt(args[1]);
+        int itemId = 0;
+        switch (args[1]){
+            case "white":
+                itemId = Integer.parseInt("2340000");
+                break;
+            case "chaos":
+                itemId = Integer.parseInt("2049100");
+                break;
+            case "miracle":
+                itemId = Integer.parseInt("5062000");
+                break;
+            case "potential":
+                itemId = Integer.parseInt("2049401");
+                break;
+            case "advpotential":
+                itemId = Integer.parseInt("2049400");
+                break;
+            case "ee":
+                itemId = Integer.parseInt("2049301");
+                break;
+            case "aee":
+                itemId = Integer.parseInt("2049301");
+                break;
+            default:
+                itemId = Integer.parseInt(args[1]);
+                break;
+        }
         final int quantity;
         if (args.length > 2) {
             quantity = Integer.parseInt(args[2]);
@@ -677,40 +779,16 @@ public final class AdminCommands {
     @Arguments("job ID")
     public static void job(User user, String[] args) {
         final int jobId = Integer.parseInt(args[1]);
-        final Job job = Job.getById(jobId);
-        if (job == null) {
+        if (Job.getById(jobId) == null) {
             user.write(MessagePacket.system("Could not change to unknown job : %d", jobId));
             return;
         }
         try (var locked = user.acquire()) {
             // Set job
-            user.getCharacterStat().setJob(job.getJobId());
-            user.write(WvsContext.statChanged(Stat.JOB, job.getJobId(), false));
+            user.getCharacterStat().setJob((short) jobId);
+            user.write(WvsContext.statChanged(Stat.JOB, (short) jobId, true));
             user.getField().broadcastPacket(UserRemote.effect(user, Effect.jobChanged()), user);
-            // Update skills
-            final SkillManager sm = user.getSkillManager();
-            final List<SkillRecord> skillRecords = new ArrayList<>();
-            for (int skillRoot : JobConstants.getSkillRootFromJob(jobId)) {
-                if (JobConstants.isBeginnerJob(skillRoot)) {
-                    continue;
-                }
-                for (SkillInfo si : SkillProvider.getSkillsForJob(Job.getById(skillRoot))) {
-                    if (sm.getSkill(si.getSkillId()).isPresent()) {
-                        continue;
-                    }
-                    if (si.isInvisible()) {
-                        continue;
-                    }
-                    final SkillRecord sr = si.createRecord();
-                    sr.setSkillLevel(0);
-                    sr.setMasterLevel(SkillConstants.isSkillNeedMasterLevel(si.getSkillId()) ? 0 : si.getMaxLevel());
-                    sm.addSkill(sr);
-                    skillRecords.add(sr);
-                }
-            }
-            user.updatePassiveSkillData();
             user.validateStat();
-            user.write(WvsContext.changeSkillRecordResult(skillRecords, true));
             // Additional handling
             if (JobConstants.isDragonJob(jobId)) {
                 final Dragon dragon = new Dragon(user.getJob());

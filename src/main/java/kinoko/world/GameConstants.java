@@ -11,6 +11,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public final class GameConstants {
+    // SERVER RATE
+    public static final int EXP_RATE = 3;
+    public static final int MESO_RATE = 3;
+    
     // USER CONSTANTS --------------------------------------------------------------------------------------------------
 
     public static final int CHARACTER_SLOT_MAX = 15;
@@ -43,7 +47,7 @@ public final class GameConstants {
     public static final int LEVEL_MAX = 200;
     public static final int[] EXP_TABLE = initializeExpTable();
 
-    public static final int DAMAGE_MAX = 999_999;
+    public static final int DAMAGE_MAX = 999_999; //999_999
     public static final double MASTERY_MAX = 0.95;
 
     public static final String DEFAULT_FRIEND_GROUP = "Group Unknown";
@@ -96,9 +100,9 @@ public final class GameConstants {
     public static final int MOB_ATTACK_COOLTIME_MAX = 13;
     public static final int MOB_ATTACK_COOLTIME_MAX_BOSS = 7;
     public static final int MOB_RECOVER_TIME = 5;
-    public static final int MOB_RESPAWN_TIME = 7;
-    public static final int MOB_CAPACITY_MAX = 40;
-    public static final double MOB_CAPACITY_CONSTANT = 0.0000078125;
+    public static final int MOB_RESPAWN_TIME = 1; //originally 7
+    public static final int MOB_CAPACITY_MAX = 100; //originally 40
+    public static final double MOB_CAPACITY_CONSTANT = 0.00001; // 0000078125
 
 
     // DROP CONSTANTS --------------------------------------------------------------------------------------------------
@@ -109,7 +113,7 @@ public final class GameConstants {
     public static final int DROP_EXPIRE_INTERVAL = 3;
     public static final int DROP_OWNERSHIP_EXPIRE_TIME = 15;
     public static final int DROP_REMAIN_ON_GROUND_TIME = 120;
-    public static final double DROP_MONEY_PROB = 0.60;
+    public static final double DROP_MONEY_PROB = 0.90;
 
 
     // REACTOR CONSTANTS -----------------------------------------------------------------------------------------------
